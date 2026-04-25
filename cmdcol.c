@@ -156,6 +156,8 @@ print_column(char const _s[], int _max, bool _pad)
 			continue;
 		} else if (len == _max) {
 			break;
+		} else if ((*_s & 0xC0) == 0x80) {
+			is_escape = false;
 		} else {
 			is_escape = false;
 			len++;
@@ -163,6 +165,10 @@ print_column(char const _s[], int _max, bool _pad)
 		if ((opt_ansi && is_escape) || !is_escape) {
 			putc(*_s, stdout);
 		}
+	}
+	while ((*_s & 0xC0) == 0x80) {
+		putc(*_s, stdout);
+		_s++;
 	}
 	if (_pad) {
 		for (int i=len; i<_max; i++) {
