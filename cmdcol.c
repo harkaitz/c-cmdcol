@@ -120,7 +120,7 @@ main(int _argc, char *_argv[])
 			if (!fps[i]) {
 				esc = print_column("", columns[i], pad);
 			} else if (!fgets(buffer, sizeof(buffer)-1, fps[i])) {
-				fclose(fps[i]);
+				pclose(fps[i]);
 				fps[i] = NULL;
 				esc = print_column("", columns[i], pad);
 			} else {
